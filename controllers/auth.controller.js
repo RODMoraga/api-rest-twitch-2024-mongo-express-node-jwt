@@ -1,7 +1,7 @@
-import { validationResult } from "express-validator"
+import { User } from "../models/User.js"
 
 export const login = (req, res) => {
-    const errors = validationResult(req)
+    // const errors = validationResult(req)
 
     if (!errors.isEmpty())
     {
@@ -17,19 +17,13 @@ export const login = (req, res) => {
     })
 }
 
-export const register = (req, res) => {
-    const errors = validationResult(req)
+export const register = async (req, res) => {
+    const { email, password } = req.body
 
-    if (!errors.isEmpty())
-    {
-        return res.status(400).json({
-            errors: errors.array()
-        })
+    try {
+        const user = new User({ email: email, password: password })
+
+    } catch (error) {
+        
     }
-    
-    console.log(req.body)
-    
-    res.json({
-        message: 'Register'
-    })
 }
